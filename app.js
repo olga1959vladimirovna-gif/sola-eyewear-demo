@@ -1,9 +1,105 @@
 'use strict';
 document.documentElement.classList.add('js');
 const models = {
- daily:{name:'Daily',shape:'Прямоугольная',color:'Тёмный эспрессо',image:'daily.webp',copy:'Собранный силуэт с широкими дужками. Для образов, в которых хочется чётких линий.'},
- weekend:{name:'Weekend',shape:'Округлая',color:'Прозрачный мёд',image:'weekend.webp',copy:'Мягкие линии и полупрозрачный медовый оттенок. Для расслабленного настроения и повседневных сочетаний.'},
- muse:{name:'Muse',shape:'Кошачий глаз',color:'Прозрачная олива',image:'muse.webp',copy:'Приподнятые уголки и оливковый оттенок. Выразительная деталь, которая меняет настроение всего образа.'}
+  "daily": {
+    "key": "daily",
+    "family": "daily",
+    "name": "Daily",
+    "shape": "Прямоугольная",
+    "color": "Тёмный эспрессо",
+    "swatch": "#3d261c",
+    "tag": "Чёткий силуэт",
+    "image": "daily.webp",
+    "copy": "Собранный силуэт с широкими дужками. Для образов, в которых хочется чётких линий."
+  },
+  "daily-noir": {
+    "key": "daily-noir",
+    "family": "daily",
+    "name": "Daily Noir",
+    "shape": "Прямоугольная",
+    "color": "Глянцевый чёрный",
+    "swatch": "#202222",
+    "tag": "Глубокий чёрный",
+    "image": "daily-noir.webp",
+    "copy": "Чёткая прямоугольная форма в глянцевом чёрном оттенке. Сдержанный акцент для повседневного гардероба."
+  },
+  "daily-sand": {
+    "key": "daily-sand",
+    "family": "daily",
+    "name": "Daily Sand",
+    "shape": "Прямоугольная",
+    "color": "Прозрачный шампань",
+    "swatch": "#c5ac83",
+    "tag": "Светлый акцент",
+    "image": "daily-sand.webp",
+    "copy": "Прямоугольный силуэт в полупрозрачном оттенке шампань. Более лёгкое визуальное настроение знакомой формы."
+  },
+  "weekend": {
+    "key": "weekend",
+    "family": "weekend",
+    "name": "Weekend",
+    "shape": "Округлая",
+    "color": "Прозрачный мёд",
+    "swatch": "#c78d3c",
+    "tag": "Мягкие линии",
+    "image": "weekend.webp",
+    "copy": "Мягкие линии и полупрозрачный медовый оттенок. Для расслабленного настроения и повседневных сочетаний."
+  },
+  "weekend-smoke": {
+    "key": "weekend-smoke",
+    "family": "weekend",
+    "name": "Weekend Smoke",
+    "shape": "Округлая",
+    "color": "Дымчатый серый",
+    "swatch": "#7a8183",
+    "tag": "Спокойный оттенок",
+    "image": "weekend-smoke.webp",
+    "copy": "Округлая оправа в дымчато-сером оттенке. Мягкий силуэт и прохладная нейтральная палитра."
+  },
+  "weekend-rose": {
+    "key": "weekend-rose",
+    "family": "weekend",
+    "name": "Weekend Rose",
+    "shape": "Округлая",
+    "color": "Прозрачный розовый",
+    "swatch": "#c79899",
+    "tag": "Нежный цвет",
+    "image": "weekend-rose.webp",
+    "copy": "Мягкая округлая форма с полупрозрачным розовым оттенком. Деликатная цветовая деталь в привычном образе."
+  },
+  "muse": {
+    "key": "muse",
+    "family": "muse",
+    "name": "Muse",
+    "shape": "Кошачий глаз",
+    "color": "Прозрачная олива",
+    "swatch": "#697345",
+    "tag": "Выразительный акцент",
+    "image": "muse.webp",
+    "copy": "Приподнятые уголки и оливковый оттенок. Выразительная деталь, которая меняет настроение всего образа."
+  },
+  "muse-wine": {
+    "key": "muse-wine",
+    "family": "muse",
+    "name": "Muse Wine",
+    "shape": "Кошачий глаз",
+    "color": "Глубокий бордо",
+    "swatch": "#682b3a",
+    "tag": "Насыщенный цвет",
+    "image": "muse-wine.webp",
+    "copy": "Силуэт «кошачий глаз» в глубоком бордовом оттенке. Заметный цвет и выразительная линия оправы."
+  },
+  "muse-crystal": {
+    "key": "muse-crystal",
+    "family": "muse",
+    "name": "Muse Crystal",
+    "shape": "Кошачий глаз",
+    "color": "Прозрачный кристалл",
+    "swatch": "#c8d9df",
+    "tag": "Прозрачная оправа",
+    "image": "muse-crystal.webp",
+    "copy": "Прозрачная оправа с приподнятыми уголками. Внимание к форме без насыщенного цвета."
+  }
 };
 const dialog=document.querySelector('#detail-dialog');
 const content=document.querySelector('#dialog-content');
@@ -25,6 +121,6 @@ content.addEventListener('click',e=>{if(e.target.closest('[data-purchase]')){con
 dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 dialog.addEventListener('close',()=>{if(opener?.isConnected)opener.focus({preventScroll:true});});
-document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.filter;let count=0;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('[data-product]').forEach(card=>{card.hidden=key!=='all'&&card.dataset.product!==key;if(!card.hidden){count++;card.classList.remove('just-shown');void card.offsetWidth;card.classList.add('just-shown');}});document.querySelector('#filter-status').textContent=count===3?'Показаны все 3 модели':`Показана модель ${models[key].name}`;}));
-document.querySelector('#shape-select').addEventListener('change',e=>{currentModel=e.target.value;const m=models[currentModel];const img=document.querySelector('#compare-image');img.src='assets/'+m.image;img.alt=`${m.shape} оправа ${m.name}`;img.classList.remove('image-switch');void img.offsetWidth;img.classList.add('image-switch');document.querySelector('.compare-word').textContent=m.name.toLowerCase();document.querySelector('#compare-name').textContent=m.name;document.querySelector('#compare-copy').textContent=m.copy;document.querySelector('#compare-details').innerHTML=`Рассмотреть ${m.name} <span aria-hidden="true">↗</span>`;});
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.filter;let count=0;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('[data-product]').forEach(card=>{card.hidden=key!=='all'&&card.dataset.product!==key;if(!card.hidden){count++;card.classList.remove('just-shown');void card.offsetWidth;card.classList.add('just-shown');}});document.querySelector('#filter-status').textContent=key==='all'?'Показаны все 9 вариантов':`Показано вариантов: ${count}`;}));
+document.querySelector('#shape-select').addEventListener('change',e=>{currentModel=e.target.value;const m=models[currentModel];const img=document.querySelector('#compare-image');img.src='assets/'+m.image;img.alt=`${m.shape} оправа ${m.name}`;img.classList.remove('image-switch');void img.offsetWidth;img.classList.add('image-switch');document.querySelector('.compare-word').textContent=m.name.split(' ')[0].toLowerCase();document.querySelector('#compare-name').textContent=m.name;document.querySelector('#compare-copy').textContent=m.copy;document.querySelector('#compare-details').innerHTML=`Рассмотреть ${m.name} <span aria-hidden="true">↗</span>`;});
 document.querySelector('#compare-details').addEventListener('click',e=>showModel(currentModel,e.currentTarget));
