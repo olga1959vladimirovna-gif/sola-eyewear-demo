@@ -7,3 +7,7 @@
 .product-image{aspect-ratio:1.55}
 @media(max-width:720px){.header-cta{display:none}.header nav{gap:20px}.header nav a:last-child{display:block}.hero-photo{min-height:0;aspect-ratio:1.4}.compare-art{grid-row:auto;min-height:270px}.compare-art img{height:225px;margin-top:20px}.compare-word{font-size:74px}.product-image{aspect-ratio:1.55}}
 @media(max-width:370px){.header nav{gap:13px;font-size:10px}.hero-photo{min-height:0}.compare-word{font-size:65px}}
+/* Hero photo: display the full photograph with breathing room. */
+.hero-photo{display:flex;align-items:center;justify-content:center;padding:80px 30px 105px;background:var(--ice)}
+.hero-photo>img{position:relative;inset:auto;width:100%;height:auto;object-fit:contain;object-position:center;border-radius:5px;animation:none}
+@media(max-width:720px){.hero-photo{aspect-ratio:auto;padding:58px 20px 88px}.hero-photo>img{border-radius:4px}}
